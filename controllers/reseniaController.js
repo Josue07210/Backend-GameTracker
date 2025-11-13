@@ -30,7 +30,7 @@ exports.obtenerResenias = async (req, res) => {
     }
 }
 
-exports.obetenerRseniasPorId = async (req, res) => {
+exports.obetenerReseniasPorId = async (req, res) => {
     try {
         const resenia = await Resenia.findById(req.params.id).populate('juegoId', 'nombre');
 

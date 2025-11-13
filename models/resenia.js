@@ -8,13 +8,18 @@ const ReseniaSchema = new Schema({
         ref: 'Juego', //Rerente al modelo Juego
         required: true
     },
+    tituloResenia: { 
+        type: String,
+        required: [true, 'El título de la reseña es obligatorio'],
+        trim: true
+    },
     puntuacion: {
         type: Number,
         required: true,
         min: 1,
         max: 5
     }, 
-    textoresenia: {
+    textoResenia: {
         type: String,
         required: [true, 'El texto de la reseña es obligatorio']
     },
@@ -27,18 +32,10 @@ const ReseniaSchema = new Schema({
         min: 0,
         default: 0
     },
-    recomendaría: {
+    recomendaria: {
         type: Boolean,
         required: true
     },
-    fechaCreacion: {
-        type: Date,
-        default: Date.now
-    },
-    fechaActualizacion: {
-        type: Date,
-        default: Date.now
-    }
 }, { 
     timestamps: true 
 });

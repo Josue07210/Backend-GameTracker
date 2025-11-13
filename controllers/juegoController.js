@@ -1,4 +1,5 @@
-const Juego = require('../models/juego.js')
+const Juego = require('../models/juego.js');
+const resenia = require('../models/resenia.js');
 
 //C - Crear Juego
 exports.crearJuego = async (req, res) => {
@@ -7,7 +8,7 @@ exports.crearJuego = async (req, res) => {
          await nuevoJuego.save();
          res.status(201).json(nuevoJuego);
     } catch (error) {
-        req.status(400).json({
+        res.status(400).json({
             error: 'Eror al agragar el juego. Verifique cada campo de información.',
             details: error.message
           });    
