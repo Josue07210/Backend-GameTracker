@@ -77,16 +77,15 @@ exports.eliminarJuego = async (req, res) =>{
             return res.status(404).json({ msg: 'Juego no encontrado para eliminar' });
         }
 
-        // ⚠️ PLUS: Eliminación de Reseñas Relacionadas (Recomendado)
-        // Si tu aplicación usa Reseñas, cuando eliminas un juego, también
-        // deberías eliminar todas las reseñas asociadas a él para evitar
+        // Si el juego se elimina correctamente,
+        // eliminar también todas las reseñas asociadas para evitar
         // datos huérfanos.
         await resenia.deleteMany({ juego: req.params.id }); 
         
         res.status(200).json({msg: 'El juego y sus reseñas han sido eliminados exitosamente.'})
 
     } catch (error) {
-        // Es una buena práctica verificar si el error se debe a un ID mal formado
+        // Para manejar errores de ID inválido
         if (error.kind === 'ObjectId') {
              return res.status(400).json({ error: 'ID de juego no válido' });
         }
