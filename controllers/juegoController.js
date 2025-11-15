@@ -9,7 +9,7 @@ exports.crearJuego = async (req, res) => {
          res.status(201).json(nuevoJuego);
     } catch (error) {
         res.status(400).json({
-            error: 'Eror al agragar el juego. Verifique cada campo de información.',
+            error: 'Error al agregar el juego. Verifique cada campo de información.',
             details: error.message
           });    
     }
@@ -70,15 +70,26 @@ exports.actualizaJuego = async (req, res) =>{
 
 exports.eliminarJuego = async (req, res) =>{
     try {
-        const juego = await Juego.findByAndDelete(req.params.id);
+        const juego = await Juego.findByIdAndDelete(req.params.id);
 
         if(!juego){
+            // Si el juego no se encontró (ya fue eliminado o el ID es incorrecto)
             return res.status(404).json({ msg: 'Juego no encontrado para eliminar' });
         }
 
-        res.status(200).json({msg: 'juego eliminado exitosamente'})
+        // ⚠️ PLUS: Eliminación de Reseñas Relacionadas (Recomendado)
+        // Si tu aplicación usa Reseñas, cuando eliminas un juego, también
+        // deberías eliminar todas las reseñas asociadas a él para evitar
+        // datos huérfanos.
+        await resenia.deleteMany({ juego: req.params.id }); 
+        
+        res.status(200).json({msg: 'El juego y sus reseñas han sido eliminados exitosamente.'})
 
     } catch (error) {
-    res.status(500).json({ error: 'Error del servidor al intentar eliminar el juego'})
+        // Es una buena práctica verificar si el error se debe a un ID mal formado
+        if (error.kind === 'ObjectId') {
+             return res.status(400).json({ error: 'ID de juego no válido' });
+        }
+        res.status(500).json({ error: 'Error del servidor al intentar eliminar el juego', details: error.message })
     }
 }

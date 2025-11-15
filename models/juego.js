@@ -39,11 +39,6 @@ const JuegoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    estado: {
-        type: String,
-        enum: ['Pendiente', 'En Progreso', 'Completado'],
-        default: 'Pendiente'
-    },
 },  { 
     timestamps: true 
 });

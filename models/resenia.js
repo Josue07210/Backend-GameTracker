@@ -36,6 +36,12 @@ const ReseniaSchema = new Schema({
         type: Boolean,
         required: true
     },
+    estado: {
+        type: String,
+        enum: ['Pendiente', 'En Progreso', 'Completado'],
+        default: 'Pendiente',
+        required: [true, 'El estado del juego es obligatorio']
+    }
 }, { 
     timestamps: true 
 });
