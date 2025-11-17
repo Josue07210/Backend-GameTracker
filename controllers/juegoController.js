@@ -1,8 +1,7 @@
-const Juego = require('../models/juego.js');
-const resenia = require('../models/resenia.js');
+import Juego from '../models/juego.js';
 
 //C - Crear Juego
-exports.crearJuego = async (req, res) => {
+export const crearJuego = async (req, res) => {
     try { 
          const nuevoJuego = new Juego(req.body);
          await nuevoJuego.save();
@@ -17,7 +16,7 @@ exports.crearJuego = async (req, res) => {
 
 //R - Obtener Juegos
 
-exports.obtenerJuegos = async (req, res) => {
+export const obtenerJuegos = async (req, res) => {
     try { 
         const juegos = await Juego.find();
         res.status(200).json(juegos);
@@ -29,7 +28,7 @@ exports.obtenerJuegos = async (req, res) => {
 
 //R - Obtener datos del juego por ID
 
-exports.obtenerJuegoPorId = async (req, res) => {
+export const obtenerJuegoPorId = async (req, res) => {
     try {
         const juego = await Juego.findById(req.params.id);
         
@@ -46,7 +45,7 @@ exports.obtenerJuegoPorId = async (req, res) => {
 
 //U - Actualizar Juego
 
-exports.actualizaJuego = async (req, res) =>{
+export const actualizaJuego = async (req, res) =>{
     try {
         const juego = await Juego.findByIdAndUpdate(req.params.id, req.body, {
             new: true, //retorna el juego actualizado
@@ -68,7 +67,7 @@ exports.actualizaJuego = async (req, res) =>{
 
 //D - Eliminar Juego
 
-exports.eliminarJuego = async (req, res) =>{
+export const eliminarJuego = async (req, res) =>{
     try {
         const juego = await Juego.findByIdAndDelete(req.params.id);
 

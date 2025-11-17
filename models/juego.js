@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const JuegoSchema = new mongoose.Schema({
     nombre: {
@@ -43,5 +43,4 @@ const JuegoSchema = new mongoose.Schema({
     timestamps: true 
 });
 
-module.exports = mongoose.model('Juego', JuegoSchema);  
-
+export default mongoose.model('Juego', JuegoSchema);

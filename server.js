@@ -1,48 +1,47 @@
-//Importación de bibliotecas y creación de constantes
-require('dotenv').config();
+// Importación de bibliotecas y creación de constantes
+import 'dotenv/config';
 
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URL = process.env.MONGO_URL;
-const cors = require('cors');
 
+// Middlewares
 app.use(cors());
-
 app.use(express.json());
 
-//Conexión con mongoDB
+// Conexión con MongoDB
 mongoose.connect(MONGODB_URL)
-    .then(() => {
-        console.log('Conexión exitosa a MongoDB Atlas');
+  .then(() => {
+    console.log('Conexión exitosa a MongoDB Atlas');
+  })
+  .catch(error => {
+    console.error('Error de conexión', error.message);
+    process.exit(1);
+  });
 
-    })
-    .catch(error => {
-        console.error('Error de conexión', error.message);
-        process.exit(1);
-});    
-
-
-//RUTAS
-const juegoRoutes = require('./routes/juegoRoutes.js');
+// RUTAS (ahora usando import dinámico)
+import juegoRoutes from './routes/juegoRoutes.js';
 app.use('/api/juegos', juegoRoutes);
 
-const reseniaRoutes = require('./routes/reseniaRoutes.js');
+import reseniaRoutes from './routes/reseniaRoutes.js';
 app.use('/api/resenias', reseniaRoutes);
 
-
-//Iniciar el servidor
-
+// Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el http://localhost:${PORT}`)
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
-//Casos exito
-//201 = a cuando se crea un recurso exitosamente POST
-//200 = a cuando se obtiene un recurso exitosamente GET, PUT, DELETE
+/*
+Casos éxito:
+201 = Recurso creado exitosamente (POST)
+200 = Recurso obtenido exitosamente (GET, PUT, DELETE)
 
-//Casos error
-//400 = a cuando hay un error del cliente (datos incompletos o incorrectos)
-//404 = Cuando no se encuentra un recurso
-//500 = Cuando hay un error del servidor
+Casos error:
+400 = Error del cliente (datos incompletos o incorrectos)
+404 = Recurso no encontrado
+500 = Error del servidor
+*/

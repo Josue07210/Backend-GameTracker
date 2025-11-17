@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
+import * as juegoController from '../controllers/juegoController.js';
 const router = express.Router();
-const juegoController = require('../controllers/juegoController.js');
 
 // Rutas CRUD para los juegos (Endpoints: /api/juegos)
 
@@ -10,4 +10,4 @@ router.get('/:id', juegoController.obtenerJuegoPorId); //R - Obtener Juego por I
 router.put('/:id', juegoController.actualizaJuego); //U - Actualizar Juego      
 router.delete('/:id', juegoController.eliminarJuego); //D - Eliminar Juego
 
-module.exports = router;
+export default router;

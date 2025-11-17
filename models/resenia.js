@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ReseniaSchema = new Schema({
@@ -46,4 +46,4 @@ const ReseniaSchema = new Schema({
     timestamps: true 
 });
 
-module.exports = mongoose.model('Resenia', ReseniaSchema);
+export default mongoose.model('Resenia', ReseniaSchema);    

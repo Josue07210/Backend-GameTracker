@@ -1,14 +1,14 @@
-const express = require('express');
+import express from 'express';
+import * as reseniaController from '../controllers/reseniaController.js';
+import { obtenerReseniasPorJuego } from '../controllers/reseniaController.js';
 const router = express.Router();
-const reseniaController = require('../controllers/reseniaController.js');
-const { route } = require('./juegoRoutes.js');
 
 // Rutas CRUD para las resenias (Endpoints: /api/resenias)
 
 router.post('/', reseniaController.crearResenia); //C - Crea Reseña
-router.get('/', reseniaController.obtenerResenias); //R - Obtener reseñas
-router.get('/:id', reseniaController.obetenerReseniasPorId); //R - Obtener reseña por ID
+router.get('/juego/:juegoId', obtenerReseniasPorJuego); //R - Obtener Reseñas por ID de Juego 
+router.get('/:id', reseniaController.obtenerReseniasPorId); //R - Obtener reseña por ID
 router.put('/:id', reseniaController.actualizarResenia); //U - Actualizar reseña
 router.delete('/:id', reseniaController.eliminarResenia); //D - Eliminar reseña
 
-module.exports = router;
+export default router;
